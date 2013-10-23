@@ -24,18 +24,28 @@ import string
 import random
 import sys
 import getopt
+
+class PW_gen:
+
+	def __init__(self):
+		self.options = {'letters': 0x01, 'digits': 0x02, 'punct': 0x04}				
 			
-def generate(length = 8):
-	characters = string.letters + string.digits + string.punctuation
-	print ''.join(random.choice(characters) for x in range(length))			
-			
-def main(argv):
-	try:
-		opt, length = getopt.getopt(argv, 'l')
-	except getopt.GetOptError:
-		print 'create_db -l <password-length>'
-		sys.exit[2]
-	generate(int(length[0]))	
+	def generate_password(self, optionmask, length = 8):
+		characters = ''
+		if optionmask & self.options['letters']: characters += string.letters
+		if optionmask & self.options['digits'] : characters += string.digits
+		if optionmask & self.options['punct']  : characters += string.punctuation
+		self.password = ''.join(random.choice(characters) for x in range(length))			
+	
+	def get_password(self):
+		return self.password
+		
+	def get_options(self):
+		return self.options
 	
 if __name__ == '__main__':
-	main(sys.argv[1:])
+	gen = PW_gen()
+	opts = gen.get_options()
+	options = opts['letters']| opts['punct']
+	gen.generate_password(options, 10)
+	print gen.get_password()
