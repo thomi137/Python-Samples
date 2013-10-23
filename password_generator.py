@@ -25,9 +25,9 @@ import random
 
 class PW_string:
 	
-	options = {'letters'	: [0x01, string.letters], 
-						'digits'	: [0x02, string.digits], 
-						'punct'		: [0x04, string.punctuation]}				
+	options = {	'letters'	: [0x01, string.letters], 
+			'digits'	: [0x02, string.digits], 
+			'punct'		: [0x04, string.punctuation]}				
 	
 	@classmethod		
 	def get_allowed_chars(self, optionmask = 0x01):
