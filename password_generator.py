@@ -22,30 +22,39 @@
 
 import string
 import random
-import sys
-import getopt
+
+class PW_string:
+	
+	options = {'letters'	: [0x01, string.letters], 
+						'digits'	: [0x02, string.digits], 
+						'punct'		: [0x04, string.punctuation]}				
+	
+	@classmethod		
+	def get_allowed_chars(self, optionmask = 0x01):
+		characters = ''
+		for item in self.options.values():
+			if optionmask & item[0]: characters += item[1]
+		return characters
+		
+	@classmethod	
+	def get_allowed_options(self):
+		return {key: self.options[key][0] for key in self.options.keys()}
 
 class PW_gen:
 
-	def __init__(self):
-		self.options = {'letters': 0x01, 'digits': 0x02, 'punct': 0x04}				
-			
-	def generate_password(self, optionmask, length = 8):
-		characters = ''
-		if optionmask & self.options['letters']: characters += string.letters
-		if optionmask & self.options['digits'] : characters += string.digits
-		if optionmask & self.options['punct']  : characters += string.punctuation
-		self.password = ''.join(random.choice(characters) for x in range(length))			
+	def __init__(self, allowed_chars):
+		self.allowed_chars = allowed_chars
+	
+	def generate_password(self, length = 8):
+		self.password = ''.join(random.choice(self.allowed_chars) for x in range(length))			
 	
 	def get_password(self):
-		return self.password
-		
-	def get_options(self):
-		return self.options
+		return self.password	
 	
 if __name__ == '__main__':
-	gen = PW_gen()
-	opts = gen.get_options()
-	options = opts['letters']| opts['punct']
-	gen.generate_password(options, 10)
+	opts = PW_string.get_allowed_options()
+	options = opts['letters']| opts['punct']|opts['digits']
+	charset = PW_string.get_allowed_chars(options)
+	gen = PW_gen(charset)
+	gen.generate_password()
 	print gen.get_password()
