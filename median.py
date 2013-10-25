@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
 #########################################################################################
-# Sample program to read csv data generated from MS Excel and put it into a single table
-# SQLite DB. Negative Number formatting is stripped and appended with a minus ('-') sign
+#  Some implementations for stats. Not tested for performance
 #
 # 	Copyright 2013 by Thomas Prosser, thomas@prosser.ch
 #
