@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 #########################################################################################
 #  Some implementations for stats. Not tested for performance
@@ -19,12 +20,11 @@
 #
 #########################################################################################
 
--*- coding:utf-8 -*-
 
 from random import Random
 
 generator = Random()
-x = [generator.randint(1,1000) for i in range(1000)]
+x = [generator.randint(1,1000) for i in range(1000000)]
 k = ((len(x)//2) + (len(x)//n +1))//2 if len(x)%2  else len(x)//2
 
 def quickselect(array, k):
