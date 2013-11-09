@@ -24,7 +24,7 @@
 from random import Random
 
 generator = Random()
-x = [generator.randint(1,1000) for i in range(1000000)]
+x = [generator.randint(1,100000000) for i in range(1000000)]
 k = ((len(x)//2) + (len(x)//n +1))//2 if len(x)%2  else len(x)//2
 
 def quickselect(array, k):
